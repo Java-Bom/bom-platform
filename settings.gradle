@@ -1,0 +1,5 @@
+rootProject.name = 'bom-platform'
+include 'bomplatform-core'
+include 'bomplatform-web'
+include 'bomplatform-slack'
+include 'bomplatform-github'
