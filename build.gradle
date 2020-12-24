@@ -7,7 +7,7 @@ def javaProjects = [project(":bomplatform-core"), project(":bomplatform-github")
                     project(":bomplatform-slack"), project(":bomplatform-web")]
 
 def springProjects = [project(":bomplatform-github"), project(":bomplatform-slack")
-                      , project(":bomplatform-web"), project(":bomplatform-core")]
+                      , project(":bomplatform-web")]
 
 
 configure(javaProjects) {
