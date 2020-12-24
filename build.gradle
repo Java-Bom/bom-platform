@@ -1,20 +1,13 @@
-buildscript {
-    ext {
-        springBootVersion = '2.3.4.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.9.RELEASE"
-    }
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 }
-
 
 def javaProjects = [project(":bomplatform-core"), project(":bomplatform-github"),
                     project(":bomplatform-slack"), project(":bomplatform-web")]
+
+def springProjects = [project(":bomplatform-github"), project(":bomplatform-slack")
+                      , project(":bomplatform-web"), project(":bomplatform-core")]
 
 
 configure(javaProjects) {
@@ -43,5 +36,16 @@ configure(javaProjects) {
     test {
         useJUnitPlatform() {}
     }
+}
 
+configure(springProjects) {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    }
 }
