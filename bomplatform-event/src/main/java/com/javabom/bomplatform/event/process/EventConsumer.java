@@ -14,12 +14,28 @@ public class EventConsumer {
 
     public EventConsumer(final EventBrokerGroup eventBrokerGroup) {
         this.eventBrokerGroup = eventBrokerGroup;
+        createTypeWatcher();
+    }
 
+    private void createTypeWatcher() {
+        Thread thread = new Thread(this::watch);
+        thread.start();
+    }
+
+    private void watch() {
+        while (true) {
+            if (eventBrokerGroup.keySet().size() != eventThreadPoolExecutors.size()) {
+                fillEventThreadPoolExecutors();
+            }
+        }
+    }
+
+    private void fillEventThreadPoolExecutors() {
         for (Class<? extends Event> eventType : eventBrokerGroup.keySet()) {
             Thread thread = new Thread(() -> consume(eventType));
             thread.setName("Thread_" + eventType.getSimpleName());
 
-            eventThreadPoolExecutors.put(eventType, new EventThreadPoolExecutor(eventType));
+            eventThreadPoolExecutors.putIfAbsent(eventType, new EventThreadPoolExecutor(eventType));
 
             thread.start();
         }
