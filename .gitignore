@@ -214,6 +214,7 @@ fabric.properties
 # User-specific stuff
 
 # Generated files
+generated/
 
 # Sensitive or high-churn files
 
