@@ -32,12 +32,14 @@ public class EventConsumer {
 
     private void fillEventThreadPoolExecutors() {
         for (Class<? extends Event> eventType : eventBrokerGroup.keySet()) {
-            Thread thread = new Thread(() -> consume(eventType));
-            thread.setName("Thread_" + eventType.getSimpleName());
 
-            eventThreadPoolExecutors.putIfAbsent(eventType, new EventThreadPoolExecutor(eventType));
+            eventThreadPoolExecutors.computeIfAbsent(eventType, (k) -> {
+                Thread thread = new Thread(() -> consume(eventType));
+                thread.setName("Thread_" + eventType.getSimpleName());
+                thread.start();
+                return new EventThreadPoolExecutor(eventType);
+            });
 
-            thread.start();
         }
     }
 
