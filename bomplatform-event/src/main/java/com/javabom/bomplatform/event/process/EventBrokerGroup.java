@@ -12,10 +12,7 @@ public class EventBrokerGroup {
 
     @SuppressWarnings("unchecked")
     public <E extends Event> void push(E event) {
-        EventBroker<E> broker = (EventBroker<E>) brokers.computeIfAbsent(event.getClass(), (key) -> {
-            brokers.put(key, new EventBroker<E>());
-            return brokers.get(key);
-        });
+        EventBroker<E> broker = (EventBroker<E>) brokers.computeIfAbsent(event.getClass(), (key) -> new EventBroker<E>());
 
         broker.push(event);
     }
