@@ -8,11 +8,12 @@ import java.util.Optional;
 import java.util.Set;
 
 public class EventBrokerGroup {
+    public static final int EVENT_CAPACITY = 100;
     private final Map<Class<? extends Event>, EventBroker<? extends Event>> brokers = new HashMap<>();
 
     @SuppressWarnings("unchecked")
     public <E extends Event> void push(E event) {
-        EventBroker<E> broker = (EventBroker<E>) brokers.computeIfAbsent(event.getClass(), (key) -> new EventBroker<E>());
+        EventBroker<E> broker = (EventBroker<E>) brokers.computeIfAbsent(event.getClass(), (key) -> new EventBroker<E>(EVENT_CAPACITY));
 
         broker.push(event);
     }
