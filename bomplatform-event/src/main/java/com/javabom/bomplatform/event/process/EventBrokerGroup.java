@@ -4,6 +4,7 @@ import com.javabom.bomplatform.event.message.Event;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -21,6 +22,11 @@ public class EventBrokerGroup {
     @SuppressWarnings("unchecked")
     public <E extends Event> Optional<E> poll(Class<? extends Event> eventType) {
         EventBroker<E> eventBroker = (EventBroker<E>) brokers.get(eventType);
+
+        if (Objects.isNull(eventBroker)) {
+            throw new IllegalStateException("처리할 수 없는 이벤트 타입 : " + eventType.getSimpleName());
+        }
+
         return Optional.ofNullable(eventBroker.poll());
     }
 
