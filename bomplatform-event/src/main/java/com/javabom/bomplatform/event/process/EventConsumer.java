@@ -4,6 +4,7 @@ import com.javabom.bomplatform.event.message.Event;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public class EventConsumer {
@@ -45,14 +46,19 @@ public class EventConsumer {
 
     private void consume(Class<? extends Event> eventType) {
         while (running) {
+            EventThreadPoolExecutor threadPoolExecutor = eventThreadPoolExecutors.get(eventType);
+
+            if (Objects.isNull(threadPoolExecutor)) {
+                continue;
+            }
+
             Optional<Event> ifExistEvent = eventBrokerGroup.poll(eventType);
 
             if (!ifExistEvent.isPresent()) {
                 continue;
             }
 
-            eventThreadPoolExecutors.get(eventType)
-                    .executeJob(() -> ifExistEvent.get().consume());
+            threadPoolExecutor.executeJob(() -> ifExistEvent.get().consume());
         }
     }
 
