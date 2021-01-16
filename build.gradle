@@ -5,7 +5,15 @@ plugins {
 }
 
 def javaProjects = [project(":bomplatform-core"), project(":bomplatform-github"),
+<<<<<<< HEAD
                     project(":bomplatform-slack"), project(":bomplatform-web"), project(":bomplatform-event")]
+=======
+                    project(":bomplatform-slack"), project(":bomplatform-web")]
+
+def springProjects = [project(":bomplatform-core"), project(":bomplatform-github"),
+                      project(":bomplatform-slack"), project(":bomplatform-web")]
+
+>>>>>>> fix : add spring project in core module
 
 configure(javaProjects) {
     apply plugin: "java"
