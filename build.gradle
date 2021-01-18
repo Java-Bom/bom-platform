@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.3.4.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
 }
 
 def javaProjects = [project(":bomplatform-core"), project(":bomplatform-github"),
@@ -52,21 +53,42 @@ configure(springProjects) {
 def queryDslProjects = [project(":bomplatform-core")]
 
 configure(queryDslProjects) {
+    apply plugin: 'java'
+
     dependencies {
         compile 'com.querydsl:querydsl-jpa'
         compile 'com.querydsl:querydsl-core'
 
-        annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa") // querydsl JPAAnnotationProcessor 사용 지정
-        annotationProcessor("jakarta.persistence:jakarta.persistence-api") // java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
-        annotationProcessor("jakarta.annotation:jakarta.annotation-api") // java.lang.NoClassDefFoundError (javax.annotation.Generated) 발생 대응
+        // querydsl JPAAnnotationProcessor 사용 지정
+        annotationProcessor("com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa")
+        // java.lang.NoClassDefFoundError(javax.annotation.Entity) 발생 대응
+        annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+        // java.lang.NoClassDefFoundError (javax.annotation.Generated) 발생 대응
+        annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+
     }
 
-    def queryDslSourceDir = "$buildDir/generated/querydsl"
+    def generated = file("src/main/generated/")
 
-    
+// 어노테이션 프로세서에 의해 자동 생성된 소스코드가 저장될 경로 지정
+    compileJava {
+        options.annotationProcessorGeneratedSourcesDirectory = generated
+    }
 
-    task cleanGeneatedDir(type: Delete) { // 인텔리제이 annotation processor 가 생성한 Q클래스가 clean 태스크로 삭제되는 게 불편하다면 둘 중에 하나를 선택
-        delete file(queryDslProjects)
+    sourceSets {
+        main {
+            java {
+                srcDirs += generated
+            }
+        }
+    }
+
+    clean {
+        delete file(generated) // 인텔리제이 Annotation processor 생성물 생성위치
+    }
+
+    task cleanGeneatedDir(type: Delete) { // QClass 삭제 task
+        delete file(generated)
     }
 
 }
