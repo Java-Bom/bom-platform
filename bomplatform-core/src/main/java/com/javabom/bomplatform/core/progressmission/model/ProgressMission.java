@@ -1,8 +1,8 @@
-package com.javabom.bomplatform.progressmission.model;
+package com.javabom.bomplatform.core.progressmission.model;
 
-import com.javabom.bomplatform.mission.model.Mission;
-import com.javabom.bomplatform.review.model.Review;
-import com.javabom.bomplatform.user.model.User;
+import com.javabom.bomplatform.core.mission.model.Mission;
+import com.javabom.bomplatform.core.review.model.Review;
+import com.javabom.bomplatform.core.user.model.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +14,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.javabom.bomplatform.progressmission.model.ProgressMissionState.CLOSE;
-import static com.javabom.bomplatform.progressmission.model.ProgressMissionState.REVIEW;
+import static com.javabom.bomplatform.core.progressmission.model.ProgressMissionState.CLOSE;
+import static com.javabom.bomplatform.core.progressmission.model.ProgressMissionState.REVIEW;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -65,7 +65,7 @@ public class ProgressMission {
 
     private void verifyNotCloseProgressMission() {
         if (this.progressMissionState == CLOSE) {
-            throw new IllegalArgumentException("close progress mission");
+            throw new IllegalArgumentException("progress mission is closed");
         }
     }
 }

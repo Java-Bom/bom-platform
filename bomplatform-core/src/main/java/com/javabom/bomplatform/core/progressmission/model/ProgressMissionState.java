@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.progressmission.model;
+package com.javabom.bomplatform.core.progressmission.model;
 
 public enum ProgressMissionState {
     OPEN, REVIEW, CLOSE

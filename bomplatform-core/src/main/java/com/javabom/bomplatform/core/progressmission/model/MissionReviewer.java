@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.progressmission.model;
+package com.javabom.bomplatform.core.progressmission.model;
 
 import lombok.AccessLevel;
 import lombok.Builder;

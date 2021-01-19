@@ -1,6 +1,6 @@
-package com.javabom.bomplatform.review.model;
+package com.javabom.bomplatform.core.review.model;
 
-import com.javabom.bomplatform.progressmission.model.ProgressMission;
+import com.javabom.bomplatform.core.progressmission.model.ProgressMission;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

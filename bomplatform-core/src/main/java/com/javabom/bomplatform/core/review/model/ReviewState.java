@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.review.model;
+package com.javabom.bomplatform.core.review.model;
 
 public enum ReviewState {
     REQUEST, PROGRESS, COMPLETE
