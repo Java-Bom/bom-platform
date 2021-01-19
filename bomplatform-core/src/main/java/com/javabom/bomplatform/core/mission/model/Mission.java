@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.mission.model;
+package com.javabom.bomplatform.core.mission.model;
 
 import lombok.AccessLevel;
 import lombok.Builder;

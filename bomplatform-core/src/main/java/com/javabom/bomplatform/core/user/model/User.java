@@ -1,7 +1,8 @@
-package com.javabom.bomplatform.user.model;
+package com.javabom.bomplatform.core.user.model;
 
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -29,6 +30,13 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
+
+    @Builder
+    public User(String email, String githubId, UserRole userRole) {
+        this.email = email;
+        this.githubId = githubId;
+        this.userRole = userRole;
+    }
 
     public boolean isNotChallenger() {
         return !isChallenger();
