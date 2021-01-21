@@ -1,6 +1,6 @@
 package com.javabom.bomplatform.web.config;
 
-import com.javabom.bomplatform.core.config.QueryDslConfiguration;
+import com.javabom.bomplatform.core.config.CoreConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.javabom.bomplatform.web"})
-@Import({QueryDslConfiguration.class})
+@Import(CoreConfig.class)
 public class WebConfig {
 }
