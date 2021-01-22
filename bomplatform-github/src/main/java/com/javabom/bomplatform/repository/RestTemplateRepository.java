@@ -13,7 +13,6 @@ import java.net.URI;
 @Repository
 public class RestTemplateRepository<T> {
 
-    // https://www.baeldung.com/rest-template
     private final RestTemplate restTemplate;
 
     public RestTemplateRepository(final RestTemplate restTemplate) {
