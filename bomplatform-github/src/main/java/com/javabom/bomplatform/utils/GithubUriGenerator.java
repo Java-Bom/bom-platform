@@ -7,7 +7,7 @@ public class GithubUriGenerator {
 
 
     public static String generateCreatePullRequestUri(String owner, String repo) {
-        return GITHUB_API_URI_PREFIX + "repos/" + owner + "/" + repo + "/pulls";
+        return GITHUB_API_URI_PREFIX + "repos/" + owner + "/" + repo + "/git/refs";
     }
 
     public static String generateGetRepoRequestUri(final String org) {
