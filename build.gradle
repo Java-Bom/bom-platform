@@ -35,8 +35,8 @@ configure(javaProjects) {
     }
 }
 
-def springProjects = [project(":bomplatform-github"), project(":bomplatform-slack")
-                      , project(":bomplatform-web"), project(":bomplatform-event")]
+def springProjects = [project(":bomplatform-github"), project(":bomplatform-slack"),
+                      project(":bomplatform-core"), project(":bomplatform-web"), project(":bomplatform-event")]
 
 configure(springProjects) {
 

@@ -1,6 +1,6 @@
 package com.javabom.bomplatform.web.progressmission.business;
 
-import com.javabom.bomplatform.progressmission.model.MissionReviewer;
+import com.javabom.bomplatform.core.progressmission.model.MissionReviewer;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

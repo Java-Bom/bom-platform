@@ -1,8 +1,8 @@
 package com.javabom.bomplatform.web.review.business;
 
-import com.javabom.bomplatform.progressmission.model.ProgressMission;
-import com.javabom.bomplatform.review.model.Review;
-import com.javabom.bomplatform.review.repository.ReviewRepository;
+import com.javabom.bomplatform.core.review.repository.ReviewRepository;
+import com.javabom.bomplatform.core.progressmission.model.ProgressMission;
+import com.javabom.bomplatform.core.review.model.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
