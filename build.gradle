@@ -5,7 +5,7 @@ plugins {
 }
 
 def javaProjects = [project(":bomplatform-core"), project(":bomplatform-github"),
-                    project(":bomplatform-slack"), project(":bomplatform-web")]
+                    project(":bomplatform-slack"), project(":bomplatform-web"), project(":bomplatform-event")]
 
 configure(javaProjects) {
     apply plugin: "java"
@@ -36,7 +36,7 @@ configure(javaProjects) {
 }
 
 def springProjects = [project(":bomplatform-github"), project(":bomplatform-slack")
-                      , project(":bomplatform-web")]
+                      , project(":bomplatform-web"), project(":bomplatform-event")]
 
 configure(springProjects) {
 
