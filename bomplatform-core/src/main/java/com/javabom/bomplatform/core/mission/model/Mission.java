@@ -42,4 +42,14 @@ public class Mission {
         this.filePath = filePath;
         this.missionState = missionState;
     }
+
+    private Mission(final String repositoryUrl, final MissionStep missionStep, final String filePath) {
+        this.repositoryUrl = repositoryUrl;
+        this.missionStep = missionStep;
+        this.filePath = filePath;
+    }
+
+    public static Mission of(final String repositoryUri, final MissionStep missionStep, final String filePath) {
+        return new Mission(repositoryUri, missionStep, filePath);
+    }
 }
