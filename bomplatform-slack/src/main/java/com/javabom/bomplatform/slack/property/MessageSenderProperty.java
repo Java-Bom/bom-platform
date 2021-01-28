@@ -1,13 +1,15 @@
 package com.javabom.bomplatform.slack.property;
 
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
+@RequiredArgsConstructor
+@ConstructorBinding
 @ConfigurationProperties(prefix = "slack.message")
-@Setter
 public class MessageSenderProperty {
 
-    private String webHookUrl;
+    private final String webHookUrl;
 
     public String getWebHookUrl() {
         return this.webHookUrl;

@@ -1,14 +1,16 @@
 package com.javabom.bomplatform.slack.property;
 
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConstructorBinding;
 
-@ConfigurationProperties("slack.user")
-@Setter
+@RequiredArgsConstructor
+@ConstructorBinding
+@ConfigurationProperties(prefix = "slack.user")
 public class UserFinderProperty {
 
-    private String token;
-    private String url;
+    private final String token;
+    private final String url;
 
     public String getToken() {
         return token;
