@@ -1,6 +1,6 @@
 package com.javabom.bomplatform.web.controller.dto.request;
 
-import com.javabom.bomplatform.core.mission.domain.MissionStep;
+import com.javabom.bomplatform.core.mission.model.MissionStep;
 import lombok.Data;
 
 @Data

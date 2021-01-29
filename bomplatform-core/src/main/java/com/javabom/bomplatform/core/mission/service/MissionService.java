@@ -1,8 +1,8 @@
 package com.javabom.bomplatform.core.mission.service;
 
 import com.javabom.bomplatform.core.mission.business.MissionBusiness;
-import com.javabom.bomplatform.core.mission.domain.Mission;
-import com.javabom.bomplatform.core.mission.domain.MissionStep;
+import com.javabom.bomplatform.core.mission.model.Mission;
+import com.javabom.bomplatform.core.mission.model.MissionStep;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;

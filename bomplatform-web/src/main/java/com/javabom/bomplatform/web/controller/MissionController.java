@@ -1,6 +1,6 @@
 package com.javabom.bomplatform.web.controller;
 
-import com.javabom.bomplatform.core.mission.domain.Mission;
+import com.javabom.bomplatform.core.mission.model.Mission;
 import com.javabom.bomplatform.web.controller.dto.request.MissionRegisterDto;
 import com.javabom.bomplatform.web.controller.dto.response.MissionDto;
 import com.javabom.bomplatform.web.controller.dto.response.MissionDtos;
@@ -59,9 +59,9 @@ public class MissionController {
     private MissionDto toMissionDto(final Mission mission) {
         return MissionDto.builder()
                 .id(mission.getId())
-                .fileUri(mission.getFileUri())
+                .fileUri(mission.getFilePath())
                 .missionState(mission.getMissionState())
-                .repositoryUri(mission.getRepositoryUri())
+                .repositoryUri(mission.getRepositoryUrl())
                 .missionStep(mission.getMissionStep())
                 .createDate(mission.getCreateDate().toString())
                 .build();
