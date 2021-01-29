@@ -1,7 +1,7 @@
 package com.javabom.bomplatform.web.controller.dto.response;
 
-import com.javabom.bomplatform.core.mission.domain.MissionState;
-import com.javabom.bomplatform.core.mission.domain.MissionStep;
+import com.javabom.bomplatform.core.mission.model.MissionState;
+import com.javabom.bomplatform.core.mission.model.MissionStep;
 import lombok.Builder;
 import lombok.Data;
 
