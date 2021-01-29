@@ -32,11 +32,13 @@ public class GithubBusiness {
         this.githubConfigProPerties = githubConfigProPerties;
     }
 
-    public ResponseEntity<CreatePullRequestResponse> createPullRequest(String owner, String repo, String ref) {
-        String uri = GithubUriGenerator.generateCreatePullRequestUri(owner, repo);
+    public ResponseEntity<CreatePullRequestResponse> createBranch(String owner, String repo, String branchName) {
+        String uri = GithubUriGenerator.generateCreateBranchRequestUri(owner, repo);
+        String ref = "refs/heads/" + branchName;
+        String sha = ShaUtils.sha1(ref);
         headers.set("Authorization", githubConfigProPerties.getToken());
 
-        CreatePullRequestBody body = new CreatePullRequestBody(ref, ShaUtils.sha1(ref));
+        CreatePullRequestBody body = new CreatePullRequestBody(ref, sha);
         HttpEntity<CreatePullRequestBody> request = new HttpEntity<>(body, headers);
 
         return restTemplateRepository.call(URI.create(uri), request, HttpMethod.POST, CreatePullRequestResponse.class);
