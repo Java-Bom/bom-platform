@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.business.model;
+package com.javabom.bomplatform.github.model;
 
 import lombok.Data;
 import lombok.ToString;
