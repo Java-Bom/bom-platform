@@ -3,7 +3,7 @@ package com.javabom.bomplatform.web.progressmission.service;
 import com.javabom.bomplatform.core.mission.model.Mission;
 import com.javabom.bomplatform.core.progressmission.model.MissionReviewer;
 import com.javabom.bomplatform.core.user.model.User;
-import com.javabom.bomplatform.github.service.GithubService;
+import com.javabom.bomplatform.github.business.GithubBusiness;
 import com.javabom.bomplatform.web.progressmission.business.MissionBusiness;
 import com.javabom.bomplatform.web.progressmission.business.PickMissionReviewerBusiness;
 import com.javabom.bomplatform.web.progressmission.business.ProgressMissionBusiness;
@@ -20,15 +20,13 @@ public class ProgressMissionService {
     private final UserBusiness userBusiness;
     private final MissionBusiness missionBusiness;
     private final PickMissionReviewerBusiness pickMissionReviewerBusiness;
-    private final GithubService githubService;
+    private final GithubBusiness githubBusiness;
 
     @Transactional
     public Long begin(final Long missionId, final Long challengerId) {
         final User challenger = userBusiness.findChallengerById(challengerId);
-
-        githubService.createBranch(challenger.getGithubId());
-
         final Mission mission = missionBusiness.showDetailById(missionId);
+        githubBusiness.createBranch(mission.getRepositoryUrl(), challenger.getGithubId());
         final MissionReviewer missionReviewer = pickMissionReviewerBusiness.pickMissionReviewer();
 
         return progressMissionBusiness.begin(mission, missionReviewer, challenger);
