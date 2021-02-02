@@ -1,14 +1,13 @@
 package com.javabom.bomplatform.core.mission.business;
 
-import com.javabom.bomplatform.core.mission.domain.Mission;
-import com.javabom.bomplatform.core.mission.domain.MissionStep;
+import com.javabom.bomplatform.core.mission.model.Mission;
+import com.javabom.bomplatform.core.mission.model.MissionStep;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
