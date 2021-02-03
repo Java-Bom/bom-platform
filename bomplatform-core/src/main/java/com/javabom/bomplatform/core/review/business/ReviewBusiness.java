@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.web.review.business;
+package com.javabom.bomplatform.core.review.business;
 
 import com.javabom.bomplatform.core.review.repository.ReviewRepository;
 import com.javabom.bomplatform.core.progressmission.model.ProgressMission;

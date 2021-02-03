@@ -8,6 +8,7 @@ import com.javabom.bomplatform.github.repository.RestTemplateRepository;
 import com.javabom.bomplatform.utils.GithubUriGenerator;
 import com.javabom.bomplatform.utils.RepositoryUriConverter;
 import com.javabom.bomplatform.utils.ShaUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class GithubBusiness {
 
     private static final HttpHeaders headers = new HttpHeaders();
@@ -28,11 +30,6 @@ public class GithubBusiness {
     private final RestTemplateRepository restTemplateRepository;
 
     private final GithubConfigProperties githubConfigProPerties;
-
-    public GithubBusiness(final RestTemplateRepository restTemplateRepository, final GithubConfigProperties githubConfigProPerties) {
-        this.restTemplateRepository = restTemplateRepository;
-        this.githubConfigProPerties = githubConfigProPerties;
-    }
 
     public ResponseEntity<CreatePullRequestResponse> createBranch(String repositoryUri, String githubId) {
         CreateBranchParams params = RepositoryUriConverter.convertCreateBranchParam(repositoryUri, githubId);
