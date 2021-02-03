@@ -2,6 +2,7 @@ package com.javabom.bomplatform.web.progressmission.business;
 
 import com.javabom.bomplatform.core.mission.model.Mission;
 import com.javabom.bomplatform.core.mission.model.MissionState;
+import com.javabom.bomplatform.core.progressmission.business.MissionBusiness;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.web.progressmission.business;
+package com.javabom.bomplatform.core.progressmission.business;
 
 import com.javabom.bomplatform.core.progressmission.model.MissionReviewer;
 import org.springframework.stereotype.Service;

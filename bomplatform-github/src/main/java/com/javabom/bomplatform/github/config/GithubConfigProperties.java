@@ -1,10 +1,7 @@
-package com.javabom.bomplatform.config;
+package com.javabom.bomplatform.github.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import java.math.BigInteger;
-import java.util.Base64;
 
 @Configuration
 @ConfigurationProperties(prefix = "github")
