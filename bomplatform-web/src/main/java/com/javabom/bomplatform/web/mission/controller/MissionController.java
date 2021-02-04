@@ -1,10 +1,10 @@
-package com.javabom.bomplatform.web.controller;
+package com.javabom.bomplatform.web.mission.controller;
 
 import com.javabom.bomplatform.core.mission.model.Mission;
-import com.javabom.bomplatform.web.controller.dto.request.MissionRegisterDto;
-import com.javabom.bomplatform.web.controller.dto.response.MissionDto;
-import com.javabom.bomplatform.web.controller.dto.response.MissionDtos;
-import com.javabom.bomplatform.web.service.MissionService;
+import com.javabom.bomplatform.web.mission.controller.dto.request.MissionRegisterDto;
+import com.javabom.bomplatform.web.mission.controller.dto.response.MissionDto;
+import com.javabom.bomplatform.web.mission.controller.dto.response.MissionDtos;
+import com.javabom.bomplatform.web.mission.service.MissionService;
 import com.javabom.bomplatform.web.utils.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
