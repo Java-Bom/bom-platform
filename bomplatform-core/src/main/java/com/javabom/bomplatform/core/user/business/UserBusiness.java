@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.core.progressmission.business;
+package com.javabom.bomplatform.core.user.business;
 
 import com.javabom.bomplatform.core.user.model.User;
 import com.javabom.bomplatform.core.user.repository.UserRepository;
