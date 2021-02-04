@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.web.controller.dto.response;
+package com.javabom.bomplatform.web.mission.controller.dto.response;
 
 import com.javabom.bomplatform.core.mission.model.MissionState;
 import com.javabom.bomplatform.core.mission.model.MissionStep;

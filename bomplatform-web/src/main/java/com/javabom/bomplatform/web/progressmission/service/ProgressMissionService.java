@@ -1,13 +1,13 @@
 package com.javabom.bomplatform.web.progressmission.service;
 
+import com.javabom.bomplatform.core.mission.business.MissionBusiness;
 import com.javabom.bomplatform.core.mission.model.Mission;
 import com.javabom.bomplatform.core.progressmission.model.MissionReviewer;
 import com.javabom.bomplatform.core.user.model.User;
 import com.javabom.bomplatform.github.business.GithubBusiness;
-import com.javabom.bomplatform.core.progressmission.business.MissionBusiness;
 import com.javabom.bomplatform.core.progressmission.business.PickMissionReviewerBusiness;
 import com.javabom.bomplatform.core.progressmission.business.ProgressMissionBusiness;
-import com.javabom.bomplatform.core.progressmission.business.UserBusiness;
+import com.javabom.bomplatform.core.user.business.UserBusiness;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class ProgressMissionService {
     @Transactional
     public Long begin(final Long missionId, final Long challengerId) {
         final User challenger = userBusiness.findChallengerById(challengerId);
-        final Mission mission = missionBusiness.showDetailById(missionId);
+        final Mission mission = missionBusiness.findMission(missionId);
         githubBusiness.createBranch(mission.getRepositoryUrl(), challenger.getGithubId());
         final MissionReviewer missionReviewer = pickMissionReviewerBusiness.pickMissionReviewer();
 

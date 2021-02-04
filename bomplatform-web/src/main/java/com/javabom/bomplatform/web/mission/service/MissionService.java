@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.web.service;
+package com.javabom.bomplatform.web.mission.service;
 
 import com.javabom.bomplatform.core.mission.business.MissionBusiness;
 import com.javabom.bomplatform.core.mission.model.Mission;
