@@ -3,11 +3,17 @@ package com.javabom.bomplatform.core.progressmission.business;
 import com.javabom.bomplatform.core.progressmission.model.MissionReviewer;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public interface PickMissionReviewerBusiness {
-    MissionReviewer pickMissionReviewer();
+public class PickMissionReviewerBusiness {
 
-    List<MissionReviewer> pickMissionReviewers(int size);
+    public MissionReviewer pickMissionReviewer() {
+        return MissionReviewer.builder().build();
+    }
+
+    public List<MissionReviewer> pickMissionReviewers(int size) {
+        return new ArrayList<>();
+    }
 }
