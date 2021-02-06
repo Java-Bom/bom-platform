@@ -9,8 +9,6 @@ import com.javabom.bomplatform.core.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
-
 import static java.util.Arrays.asList;
 
 @Service
@@ -33,6 +31,6 @@ public class ProgressMissionBusiness {
 
     public ProgressMission showDetailById(Long progressMissionId) {
         return progressMissionRepository.findById(progressMissionId)
-                .orElseThrow(() -> new NoSuchElementException(String.format("input id: %d, not found progressMission", progressMissionId)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("input id: %d, not found progressMission", progressMissionId)));
     }
 }

@@ -8,13 +8,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@SpringBootTest
 @RunWith(SpringRunner.class)
-@DataJpaTest
 public class UserBusinessTest {
 
     @Autowired
@@ -25,38 +26,50 @@ public class UserBusinessTest {
 
     @DisplayName("Challenger인 User를 찾는다.")
     @Test
-    public void findChallengerById() throws Exception {
+    public void findChallengerByIdTest() throws Exception {
         //given
-        final User challengerUser = User.builder()
-                .email("testUser@test.com")
-                .githubId("testUser")
-                .userRole(UserRole.CHALLENGER)
-                .build();
-
-        userRepository.save(challengerUser);
+        final User saveUser = saveUser(UserRole.CHALLENGER);
 
         //when
-        final User actualUser = userBusiness.findChallengerById(challengerUser.getId());
+        final User findUser = userBusiness.findChallengerById(saveUser.getId());
 
         //then
-        assertThat(actualUser.getId()).isEqualTo(challengerUser.getId());
+        assertThat(findUser.getId()).isEqualTo(saveUser.getId());
     }
 
-    @DisplayName("찾은 User가 Challenger가 아니면 Exception을 발생시킨다.")
+    @DisplayName("등록되지 않은 User 조회 시 IllegalArgumentException을 발생시킨다.")
     @Test
-    public void findChallengerByIdException() throws Exception {
+    public void findChallengerByIdExceptionTest1() throws Exception {
         //given
-        final User challengerUser = User.builder()
-                .email("testUser@test.com")
-                .githubId("testUser")
-                .userRole(UserRole.REVIEWER)
-                .build();
-
-        userRepository.save(challengerUser);
+        final User saveUser = saveUser(UserRole.CHALLENGER);
+        final Long notSaveUserId = saveUser.getId() + 1;
 
         //then
-        assertThatThrownBy(() -> userBusiness.findChallengerById(challengerUser.getId()))
+        assertThatThrownBy(() -> userBusiness.findChallengerById(notSaveUserId))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(String.format("input id: %d, not found user", notSaveUserId));
+    }
+
+    @DisplayName("찾은 User가 Challenger가 아니면 IllegalArgumentException을 발생시킨다.")
+    @Test
+    public void findChallengerByIdExceptionTest2() throws Exception {
+        //given
+        final User saveUser = saveUser(UserRole.REVIEWER);
+
+        //then
+        assertThatThrownBy(() -> userBusiness.findChallengerById(saveUser.getId()))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("is not challenger");
+    }
+
+    private User saveUser(UserRole userRole) {
+        final User user = User.builder()
+                .email("testUser@test.com")
+                .githubId("testUser")
+                .userRole(userRole)
+                .build();
+
+        userRepository.save(user);
+        return user;
     }
 }

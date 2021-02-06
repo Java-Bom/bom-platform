@@ -12,7 +12,7 @@ public class ProgressMissionTest {
 
     @DisplayName("진행미션의 상태를 Review 상태로 바꾼다.")
     @Test
-    public void startReview() throws Exception {
+    public void startReviewTest() throws Exception {
         //given
         ProgressMission progressMission = ProgressMission.builder()
                 .progressMissionState(ProgressMissionState.OPEN)
@@ -27,7 +27,7 @@ public class ProgressMissionTest {
 
     @DisplayName("진행미션이 닫혀있는 상태면 Exception을 발생시킨다.")
     @Test
-    public void createReviewFail() throws Exception {
+    public void createReviewExceptionTest() throws Exception {
         //given
         ProgressMission progressMission = ProgressMission.builder()
                 .progressMissionState(ProgressMissionState.CLOSE)
@@ -44,7 +44,7 @@ public class ProgressMissionTest {
     @DisplayName("진행미션이 닫혀있는 상태가 아니면 Review를 생성한다.")
     @ParameterizedTest
     @CsvSource(value = {"OPEN", "REVIEW"})
-    public void createReviewSuccess(ProgressMissionState progressMissionState) throws Exception {
+    public void createReviewSuccessTest(ProgressMissionState progressMissionState) throws Exception {
         //given
         ProgressMission progressMission = ProgressMission.builder()
                 .progressMissionState(progressMissionState)

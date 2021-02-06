@@ -15,7 +15,7 @@ public class UserBusiness {
 
     public User findChallengerById(Long userId) {
         final User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NoSuchElementException(String.format("input id: %d, not found user", userId)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("input id: %d, not found user", userId)));
 
         if(user.isNotChallenger()){
             throw new IllegalArgumentException("is not challenger");
