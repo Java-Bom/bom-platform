@@ -1,4 +1,4 @@
-package com.javabom.bomplatform.github.config;
+package com.javabom.bomplatform.slack.config;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -8,14 +8,14 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Duration;
 
 @Configuration
-public class RestTemplateConfig {
+public class GithubRestTemplateConfig {
 
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplateBuilder githubRestTemplate() {
         RestTemplateBuilder builder = new RestTemplateBuilder();
 
         return builder.setReadTimeout(Duration.ofMillis(3000))
-                .setConnectTimeout(Duration.ofMillis(3000))
-                .build();
+                .setConnectTimeout(Duration.ofMillis(3000));
     }
 }
+
