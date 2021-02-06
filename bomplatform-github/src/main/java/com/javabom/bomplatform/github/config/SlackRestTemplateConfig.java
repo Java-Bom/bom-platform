@@ -1,5 +1,6 @@
 package com.javabom.bomplatform.github.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import java.time.Duration;
 public class SlackRestTemplateConfig {
 
     @Bean
+    @Qualifier(value = "slackRestTemplate")
     public RestTemplateBuilder slackRestTemplate() {
         RestTemplateBuilder builder = new RestTemplateBuilder();
 

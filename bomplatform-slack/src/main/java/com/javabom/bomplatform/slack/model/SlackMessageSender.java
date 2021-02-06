@@ -13,7 +13,7 @@ public class SlackMessageSender {
 
     public SlackMessageSender(MessageSenderProperty messageSenderProperty) {
         this.messageSenderProperty = messageSenderProperty;
-        slackApi = new SlackApi(messageSenderProperty.getWebHookUrl());
+        this.slackApi = new SlackApi(messageSenderProperty.getWebHookUrl());
     }
 
     public void requestReview(String reviewerId, String reviewUrl) {

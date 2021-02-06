@@ -3,6 +3,7 @@ package com.javabom.bomplatform.slack.model;
 import com.javabom.bomplatform.slack.model.response.SlackUserResponse;
 import com.javabom.bomplatform.slack.property.UserFinderProperty;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class SlackUserFinder {
 
     private final UserFinderProperty slackUserProperty;
-    private final RestTemplate restTemplate;
+    private final RestTemplateBuilder slackRestTemplate;
 
     public String findUserIdByEmail(String email) {
         HttpHeaders headers = new HttpHeaders();
@@ -31,6 +32,7 @@ public class SlackUserFinder {
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
 
+        final RestTemplate restTemplate = slackRestTemplate.build();
         ResponseEntity<SlackUserResponse> response = restTemplate.postForEntity(
                 slackUserProperty.getUrl(), request, SlackUserResponse.class);
         final SlackUserResponse slackUserResponse = response.getBody();
