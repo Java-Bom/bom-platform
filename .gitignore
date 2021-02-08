@@ -11,7 +11,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-application.yml
+application-slack.yml
 
 # External tool builders
 .externalToolBuilders/
