@@ -15,15 +15,14 @@ import java.net.URI;
 @Repository
 public class RestTemplateRepository<T> {
 
-    private final RestTemplateBuilder githubRestTemplate;
+    private final RestTemplateBuilder githubRestTemplateBuilder;
 
-    public RestTemplateRepository(@Qualifier(value = "githubRestTemplate") RestTemplateBuilder githubRestTemplate) {
-        this.githubRestTemplate = githubRestTemplate;
+    public RestTemplateRepository(@Qualifier("githubRestTemplateBuilder") RestTemplateBuilder githubRestTemplateBuilder) {
+        this.githubRestTemplateBuilder = githubRestTemplateBuilder;
     }
 
     public ResponseEntity<T> call(URI uri, HttpEntity<T> entity, HttpMethod httpMethod, Class<T> object) {
-        final RestTemplate restTemplate = githubRestTemplate.build();
+        final RestTemplate restTemplate = githubRestTemplateBuilder.build();
         return restTemplate.exchange(uri, httpMethod, entity, object);
     }
-
 }
