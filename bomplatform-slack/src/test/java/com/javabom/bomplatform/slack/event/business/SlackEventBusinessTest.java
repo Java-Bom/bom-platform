@@ -1,7 +1,7 @@
 package com.javabom.bomplatform.slack.event.business;
 
 import com.javabom.bomplatform.event.process.EventBrokerGroup;
-import com.javabom.bomplatform.slack.event.message.SlackEvent;
+import com.javabom.bomplatform.event.message.SlackEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

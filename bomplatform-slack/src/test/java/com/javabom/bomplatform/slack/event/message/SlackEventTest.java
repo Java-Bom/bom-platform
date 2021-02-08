@@ -1,5 +1,6 @@
 package com.javabom.bomplatform.slack.event.message;
 
+import com.javabom.bomplatform.event.message.SlackEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
