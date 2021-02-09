@@ -9,6 +9,7 @@ import com.javabom.bomplatform.core.review.model.Review;
 import com.javabom.bomplatform.core.user.model.User;
 import com.javabom.bomplatform.core.user.model.UserRole;
 import com.javabom.bomplatform.core.user.repository.UserRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,7 @@ class ReviewRepositoryTest {
 
     private User challenger;
     private User reviewer;
+    private User watcher;
 
     @BeforeEach
     void setUp() {
@@ -80,12 +82,12 @@ class ReviewRepositoryTest {
         assertThat(reviews.getTotalElements()).isEqualTo(2);
     }
 
-    @DisplayName("Challenger로 등록된 자신의 리뷰가 없으면 0개가 조회된다.")
+    @DisplayName("자신의 리뷰가 없으면 0개가 조회된다.")
     @Test
     void noIdWillReturnSizeZeroPageable() {
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        Page<Review> reviews = reviewRepository.findAllByChallengerId(reviewer.getId(), pageRequest);
+        Page<Review> reviews = reviewRepository.findAllByChallengerId(watcher.getId(), pageRequest);
 
         assertThat(reviews.getTotalElements()).isEqualTo(0);
     }
@@ -104,10 +106,17 @@ class ReviewRepositoryTest {
         assertThat(reviews.getTotalElements()).isEqualTo(expectedResult);
     }
 
+    @AfterEach
+    void tearDown() {
+        userRepository.deleteAll();
+        progressMissionRepository.deleteAll();
+        reviewRepository.deleteAll();
+    }
+
     private void saveUsers() {
         challenger = userRepository.save(new User("challenger@gmail.com", "challenger", UserRole.CHALLENGER));
-        ;
         reviewer = userRepository.save(new User("reviewer@gmail.com", "reviewer", UserRole.REVIEWER));
+        watcher = userRepository.save(new User("watcher@gmail.com", "watcher", UserRole.CHALLENGER));
     }
 
     private MissionReviewer toMissionReviewer(User user) {
