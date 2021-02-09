@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import static com.javabom.bomplatform.core.progressmission.model.QMissionReviewer.missionReviewer;
 import static com.javabom.bomplatform.core.review.model.QReview.review;
 import static com.javabom.bomplatform.core.progressmission.model.QProgressMission.progressMission;
 
@@ -30,8 +31,20 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return new PageImpl<>(reviews.getResults(), pageable, reviews.getTotal());
     }
 
+    @Override
+    public Page<Review> findAllByReviewerId(final String reviewerId, final Pageable pageable) {
+        QueryResults<Review> reviews = jpaQueryFactory.selectFrom(review)
+                .join(review.progressMission, progressMission)
+                .join(progressMission.missionReviewers, missionReviewer)
+                .where(missionReviewer.githubId.eq(reviewerId))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+
+        return new PageImpl<>(reviews.getResults(), pageable, reviews.getTotal());
+    }
+
     public BooleanExpression eqChallengerId(final QProgressMission progressMission, final long challengerId) {
         return progressMission.challenger.id.eq(challengerId);
     }
-
 }

@@ -13,6 +13,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
@@ -54,9 +56,18 @@ class ReviewRepositoryTest {
                 .missionReviewers(Arrays.asList(toMissionReviewer(reviewer)))
                 .build();
 
+        ProgressMission progressMission1 = ProgressMission.builder()
+                .progressMissionState(ProgressMissionState.OPEN)
+                .challenger(reviewer)
+                .missionReviewers(Arrays.asList(toMissionReviewer(challenger)))
+                .build();
+
         progressMissionRepository.save(progressMission);
         reviewRepository.save(progressMission.createReview("url1"));
         reviewRepository.save(progressMission.createReview("url2"));
+
+        progressMissionRepository.save(progressMission1);
+        reviewRepository.save(progressMission1.createReview("subUrl"));
     }
 
     @DisplayName("Challenger id로 Review 조회")
@@ -77,6 +88,20 @@ class ReviewRepositoryTest {
         Page<Review> reviews = reviewRepository.findAllByChallengerId(reviewer.getId(), pageRequest);
 
         assertThat(reviews.getTotalElements()).isEqualTo(0);
+    }
+
+    @DisplayName("Reviewer id로 Review 조회")
+    @ParameterizedTest
+    @CsvSource({"challenger, 1", "reviewer, 2"})
+    void findReviewByReviewerId(String githubId, int expectedResult) {
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        Page<Review> reviews = reviewRepository.findAllByReviewerId(githubId, pageRequest);
+
+        reviews.get()
+                .forEach(review -> System.out.println(review.getReviewURL()));
+
+        assertThat(reviews.getTotalElements()).isEqualTo(expectedResult);
     }
 
     private void saveUsers() {
