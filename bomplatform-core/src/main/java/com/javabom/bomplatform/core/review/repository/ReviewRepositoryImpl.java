@@ -2,6 +2,7 @@ package com.javabom.bomplatform.core.review.repository;
 
 import com.javabom.bomplatform.core.progressmission.model.QProgressMission;
 import com.javabom.bomplatform.core.review.model.Review;
+import com.javabom.bomplatform.core.user.model.QUser;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -20,10 +21,10 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<Review> findAllByChallengerId(final long challengerId, final Pageable pageable) {
+    public Page<Review> findAllByChallengerId(final String challengerId, final Pageable pageable) {
         QueryResults<Review> reviews = jpaQueryFactory.selectFrom(review)
                 .leftJoin(review.progressMission, progressMission)
-                .where(eqChallengerId(review.progressMission, challengerId))
+                .where(eqChallengerId(progressMission.challenger, challengerId))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
@@ -44,7 +45,7 @@ public class ReviewRepositoryImpl implements ReviewRepositoryCustom {
         return new PageImpl<>(reviews.getResults(), pageable, reviews.getTotal());
     }
 
-    public BooleanExpression eqChallengerId(final QProgressMission progressMission, final long challengerId) {
-        return progressMission.challenger.id.eq(challengerId);
+    public BooleanExpression eqChallengerId(final QUser challenger, final String challengerId) {
+        return challenger.githubId.eq(challengerId);
     }
 }

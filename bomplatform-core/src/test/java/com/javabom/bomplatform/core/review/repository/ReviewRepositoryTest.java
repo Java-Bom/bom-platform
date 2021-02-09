@@ -77,7 +77,7 @@ class ReviewRepositoryTest {
     void findReviewByChallengerId() {
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        Page<Review> reviews = reviewRepository.findAllByChallengerId(challenger.getId(), pageRequest);
+        Page<Review> reviews = reviewRepository.findAllByChallengerId(challenger.getGithubId(), pageRequest);
 
         assertThat(reviews.getTotalElements()).isEqualTo(2);
     }
@@ -87,7 +87,7 @@ class ReviewRepositoryTest {
     void noIdWillReturnSizeZeroPageable() {
         PageRequest pageRequest = PageRequest.of(0, 10);
 
-        Page<Review> reviews = reviewRepository.findAllByChallengerId(watcher.getId(), pageRequest);
+        Page<Review> reviews = reviewRepository.findAllByChallengerId(watcher.getGithubId(), pageRequest);
 
         assertThat(reviews.getTotalElements()).isEqualTo(0);
     }
