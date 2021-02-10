@@ -1,7 +1,7 @@
 package com.javabom.bomplatform.slack.event.business;
 
 import com.javabom.bomplatform.event.business.EventBusiness;
-import com.javabom.bomplatform.slack.event.message.SlackEvent;
+import com.javabom.bomplatform.event.message.SlackEvent;
 import com.javabom.bomplatform.event.process.EventBrokerGroup;
 import com.javabom.bomplatform.slack.model.SlackMessageSender;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,4 @@
-package com.javabom.bomplatform.slack.event.message;
-
-import com.javabom.bomplatform.event.message.Event;
+package com.javabom.bomplatform.event.message;
 
 import java.util.function.Consumer;
 

@@ -1,6 +1,7 @@
 package com.javabom.bomplatform.web.config;
 
 import com.javabom.bomplatform.core.config.CoreConfig;
+import com.javabom.bomplatform.github.config.GithubConfig;
 import com.javabom.bomplatform.slack.config.SlackConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,6 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.javabom.bomplatform.web"})
-@Import(value = {CoreConfig.class, SlackConfig.class})
+@Import(value = {CoreConfig.class, SlackConfig.class, GithubConfig.class})
 public class WebConfig {
 }

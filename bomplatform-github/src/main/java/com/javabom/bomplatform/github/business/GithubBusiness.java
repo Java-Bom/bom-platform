@@ -3,7 +3,7 @@ package com.javabom.bomplatform.github.business;
 import com.javabom.bomplatform.github.model.CreateBranchParams;
 import com.javabom.bomplatform.github.model.CreatePullRequestBody;
 import com.javabom.bomplatform.github.model.CreatePullRequestResponse;
-import com.javabom.bomplatform.github.config.GithubConfigProperties;
+import com.javabom.bomplatform.github.property.GithubProperties;
 import com.javabom.bomplatform.github.repository.RestTemplateRepository;
 import com.javabom.bomplatform.utils.GithubUriGenerator;
 import com.javabom.bomplatform.utils.RepositoryUriConverter;
@@ -29,14 +29,14 @@ public class GithubBusiness {
 
     private final RestTemplateRepository restTemplateRepository;
 
-    private final GithubConfigProperties githubConfigProPerties;
+    private final GithubProperties githubProPerties;
 
     public ResponseEntity<CreatePullRequestResponse> createBranch(String repositoryUri, String githubId) {
         CreateBranchParams params = RepositoryUriConverter.convertCreateBranchParam(repositoryUri, githubId);
         String uri = GithubUriGenerator.generateCreateBranchRequestUri(params.getOwner(), params.getRepo());
         String ref = "refs/heads/" + params.getBranchName();
         String sha = ShaUtils.sha1(ref);
-        headers.set("Authorization", githubConfigProPerties.getToken());
+        headers.set("Authorization", githubProPerties.getToken());
 
         CreatePullRequestBody body = new CreatePullRequestBody(ref, sha);
         HttpEntity<CreatePullRequestBody> request = new HttpEntity<>(body, headers);
