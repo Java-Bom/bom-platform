@@ -4,7 +4,10 @@ import com.javabom.bomplatform.core.review.repository.ReviewRepository;
 import com.javabom.bomplatform.core.progressmission.model.ProgressMission;
 import com.javabom.bomplatform.core.review.model.Review;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -19,5 +22,15 @@ public class ReviewBusiness {
         reviewRepository.save(review);
 
         return review.getId();
+    }
+
+    public List<Review> findChallengerReviews(final String githubId, final Pageable pageable) {
+        return reviewRepository.findAllByChallengerId(githubId, pageable)
+                .getContent();
+    }
+
+    public List<Review> findReviewerReviews(final String githubId, final Pageable pageable) {
+        return reviewRepository.findAllByReviewerId(githubId, pageable)
+                .getContent();
     }
 }
