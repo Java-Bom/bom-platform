@@ -33,4 +33,15 @@ public class ReviewBusiness {
         return reviewRepository.findAllByReviewerId(githubId, pageable)
                 .getContent();
     }
+
+    public void completeReview(long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalStateException("존재하지 않는 리뷰입니다."));
+
+        if (review.isComplete()) {
+            throw new IllegalStateException("이미 완료된 리뷰입니다.");
+        }
+
+        review.complete();
+    }
 }

@@ -43,4 +43,8 @@ public class Review {
     public void complete() {
         this.reviewState = ReviewState.COMPLETE;
     }
+
+    public boolean isComplete() {
+        return this.reviewState == ReviewState.COMPLETE;
+    }
 }
