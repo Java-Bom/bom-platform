@@ -65,7 +65,7 @@ class ReviewControllerTest {
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .addFilter(new CharacterEncodingFilter("UTF_8", true))
+                .addFilter(new CharacterEncodingFilter("UTF-8", true))
                 .build();
 
         init();
@@ -98,11 +98,6 @@ class ReviewControllerTest {
                 () -> assertThat(results.size()).isEqualTo(size),
                 () -> assertThat(results.get(0).getReviewUrl()).isEqualTo(reviewUrl)
         );
-    }
-
-    @DisplayName("Reviewer githubId로 review list를 조회한다.")
-    @Test
-    void name() {
     }
 
     private void init() {
