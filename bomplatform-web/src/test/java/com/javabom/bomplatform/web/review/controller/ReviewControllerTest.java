@@ -73,9 +73,9 @@ class ReviewControllerTest {
 
     @AfterEach
     void tearDown() {
-        userRepository.deleteAll();
-        progressMissionRepository.deleteAll();
         reviewRepository.deleteAll();
+        progressMissionRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @DisplayName("Challenger githubId로 review list를 조회한다.")

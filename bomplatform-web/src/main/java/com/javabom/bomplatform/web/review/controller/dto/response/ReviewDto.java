@@ -2,14 +2,16 @@ package com.javabom.bomplatform.web.review.controller.dto.response;
 
 import com.javabom.bomplatform.core.review.model.Review;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Getter
 public class ReviewDto {
-    private final LocalDateTime createdTime;
-    private final String reviewUrl;
-    private final String state;
+    private LocalDateTime createdTime;
+    private String reviewUrl;
+    private String state;
 
     public ReviewDto(final Review review) {
         this.createdTime = review.getCreateDate();
