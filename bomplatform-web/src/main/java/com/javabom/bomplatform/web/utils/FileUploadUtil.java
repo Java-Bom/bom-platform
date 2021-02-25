@@ -15,14 +15,18 @@ public class FileUploadUtil {
 
     private final static String UPLOAD_DIR = "/javabom";
 
-    public static void saveFile(String fileName, MultipartFile multipartFile) throws IOException {
+    public static void saveFile(String fileName, MultipartFile file) throws IOException {
+        if(file.isEmpty()){
+            throw new NullPointerException("Save file does not exist");
+        }
+
         Path uploadPath = Paths.get(UPLOAD_DIR);
 
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
-        try (InputStream inputStream = multipartFile.getInputStream()){
+        try (InputStream inputStream = file.getInputStream()){
             final Path filePath = uploadPath.resolve(fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
