@@ -4,6 +4,7 @@ import com.javabom.bomplatform.core.progressmission.model.ProgressMission;
 import com.javabom.bomplatform.github.business.GithubBusiness;
 import com.javabom.bomplatform.core.progressmission.business.ProgressMissionBusiness;
 import com.javabom.bomplatform.core.review.business.ReviewBusiness;
+import com.javabom.bomplatform.slack.model.SlackMessageSender;
 import com.javabom.bomplatform.web.review.controller.dto.response.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +22,7 @@ public class ReviewService {
     private final ReviewBusiness reviewBusiness;
     private final ProgressMissionBusiness progressMissionBusiness;
     private final GithubBusiness githubBusiness;
+    private final SlackMessageSender slackMessageSender;
 
     @Transactional
     public Long request(Long progressMissionId, String reviewURL) {
@@ -45,5 +47,11 @@ public class ReviewService {
                 .stream()
                 .map(ReviewDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void completeReviewState(long reviewId, String challengerId) {
+        reviewBusiness.completeReview(reviewId);
+        slackMessageSender.completeReview(challengerId);
     }
 }
