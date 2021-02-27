@@ -55,4 +55,11 @@ public class ReviewController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{reviewId}/inform/{challengerId}")
+    public ResponseEntity<Void> informReview(@PathVariable long reviewId, @PathVariable String challengerId) {
+        reviewService.informReviewFinish(reviewId, challengerId);
+
+        return ResponseEntity.ok().build();
+    }
 }

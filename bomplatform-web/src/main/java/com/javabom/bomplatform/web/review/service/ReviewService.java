@@ -54,4 +54,10 @@ public class ReviewService {
         reviewBusiness.completeReview(reviewId);
         slackMessageSender.completeReview(challengerId);
     }
+
+    @Transactional
+    public void informReviewFinish(long reviewId, String challengerId) {
+        reviewBusiness.validateUncompletedReview(reviewId);
+        slackMessageSender.completeReview(challengerId);
+    }
 }
