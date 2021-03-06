@@ -17,6 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Review {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long id;
 
@@ -41,5 +42,9 @@ public class Review {
 
     public void complete() {
         this.reviewState = ReviewState.COMPLETE;
+    }
+
+    public boolean isComplete() {
+        return this.reviewState == ReviewState.COMPLETE;
     }
 }
