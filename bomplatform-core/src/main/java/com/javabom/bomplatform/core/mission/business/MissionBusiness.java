@@ -26,7 +26,7 @@ public class MissionBusiness {
 
     public Mission findMission(final Long missionId) {
         return missionRepository.findById(missionId)
-                .orElseThrow(() -> new IllegalArgumentException("Not found Mission, Mission Id : " + missionId));
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Not found Mission, Mission Id : %d", missionId)));
     }
 
     public List<Mission> findMission(final Pageable pageable) {

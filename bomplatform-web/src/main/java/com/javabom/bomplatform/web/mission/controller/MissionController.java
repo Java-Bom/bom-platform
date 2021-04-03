@@ -6,11 +6,14 @@ import com.javabom.bomplatform.web.mission.controller.dto.response.MissionDto;
 import com.javabom.bomplatform.web.mission.controller.dto.response.MissionDtos;
 import com.javabom.bomplatform.web.mission.service.MissionService;
 import com.javabom.bomplatform.web.utils.FileUploadUtil;
+import com.javabom.bomplatform.web.uploader.FileUploader;
+import com.javabom.bomplatform.web.uploader.S3FileUploader;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,25 +24,33 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Api(tags="Mission")
+@Api(tags = "Mission")
 @RestController
-@RequestMapping(value = "/v1")
-@RequiredArgsConstructor
+@RequestMapping(value = "/v1/mission")
 public class MissionController {
 
-    private static final String DEFAULT_PAGE_NO = "0";
-    private static final String DEFAULT_PAGE_SIZE = "20";
+    private static final int DEFAULT_PAGE_NO = 0;
+    private static final int DEFAULT_PAGE_SIZE = 20;
 
     private final MissionService missionService;
+    private final FileUploader fileUploader;
+
+    public MissionController(MissionService missionService, S3FileUploader fileUploader) {
+        this.missionService = missionService;
+        this.fileUploader = fileUploader;
+    }
 
     @ApiOperation(value = "Mission Register", notes = "미션 저장")
     @ApiResponses({
-            @ApiResponse(code = 400, message = "Invalid Uri, File Format"),
+            @ApiResponse(code = 200, message = "Mission Registration Success"),
+            @ApiResponse(code = 400, message = "Invalid Uri, File Format")
     })
-    @PostMapping(value = "/mission")
-    public void register(MissionRegisterDto missionRegisterDto, MultipartFile missionFile) throws IOException {
-        final String filePath = uploadFile(missionFile);
-        missionService.register(missionRegisterDto.getRepositoryUri(), missionRegisterDto.getMissionStep(), filePath);
+    @PostMapping()
+    public ResponseEntity<Long> register(@RequestBody MissionRegisterDto missionRegisterDto,
+                                         @RequestPart(value = "missionFile") MultipartFile missionFile) throws IOException {
+        final String filePath = fileUploader.upload(missionFile);
+        final Long registeredId = missionService.register(missionRegisterDto.getRepositoryUri(), missionRegisterDto.getMissionStep(), filePath);
+        return ResponseEntity.ok().body(registeredId);
     }
 
     private String uploadFile(final MultipartFile missionFile) throws IOException {
@@ -53,7 +64,7 @@ public class MissionController {
             @ApiResponse(code = 400, message = "Invalid Mission Id"),
             @ApiResponse(code = 404, message = "Not found Mission")
     })
-    @GetMapping(value = "/mission/{missionId}")
+    @GetMapping(value = "/{missionId}")
     public ResponseEntity<MissionDto> getMission(@PathVariable("missionId") final Long missionId) {
         final Mission mission = missionService.getMission(missionId);
         return ResponseEntity.ok().body(toMissionDto(mission));
@@ -64,10 +75,9 @@ public class MissionController {
             @ApiResponse(code = 400, message = "Invalid User"),
             @ApiResponse(code = 404, message = "Not Found Mission or Page")
     })
-    @GetMapping(value = "/mission")
-    public ResponseEntity<MissionDtos> getMission(@RequestParam(defaultValue = DEFAULT_PAGE_NO) Integer pageNo,
-                                                  @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize) {
-        List<Mission> mission = missionService.getMission(pageNo, pageSize);
+    @GetMapping()
+    public ResponseEntity<MissionDtos> getMission(@PageableDefault(page = DEFAULT_PAGE_NO, size = DEFAULT_PAGE_SIZE) Pageable pageable) {
+        List<Mission> mission = missionService.getMission(pageable);
         List<MissionDto> missionDtos = mission.stream()
                 .map(this::toMissionDto)
                 .collect(Collectors.toList());

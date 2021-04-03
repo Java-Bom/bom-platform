@@ -5,8 +5,9 @@ import com.javabom.bomplatform.core.mission.model.Mission;
 import com.javabom.bomplatform.core.mission.model.MissionStep;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class MissionService {
 
     private final MissionBusiness missionBusiness;
 
+    @Transactional
     public Long register(final String repositoryUri, final MissionStep missionStep, final String filePath) {
         return missionBusiness.register(repositoryUri, missionStep, filePath);
     }
@@ -25,8 +27,7 @@ public class MissionService {
         return missionBusiness.findMission(missionId);
     }
 
-    public List<Mission> getMission(final Integer pageNo, final Integer pageSize) {
-        final PageRequest paging = PageRequest.of(pageNo, pageSize);
-        return missionBusiness.findMission(paging);
+    public List<Mission> getMission(Pageable pageable) {
+        return missionBusiness.findMission(pageable);
     }
 }
